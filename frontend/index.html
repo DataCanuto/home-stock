@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Home Estoque</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#main-content">
+                    <i class="bi bi-house-heart-fill"></i> Home Estoque
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#main-content">
+                                <i class="bi bi-grid-fill"></i> Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cadastrar-produto">
+                                <i class="bi bi-plus-circle"></i> Cadastrar</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-tags"></i> Categorias
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#card-armario-superior">Armário Superior</a></li>
+                                <li><a class="dropdown-item" href="#card-armario-inferior">Armário Inferior</a></li>
+                                <li><a class="dropdown-item" href="#card-armario-gatas">Armário das Gatas</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#card-congelador">Congelador</a></li>
+                                <li><a class="dropdown-item" href="#card-geladeira">Geladeira</a></li>
+                                <li><a class="dropdown-item" href="#card-fruteira">Fruteira</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#card-dispensa">Dispensa</a></li>
+                                <li><a class="dropdown-item" href="#card-banheiro">Banheiro</a></li>
+                                <li><a class="dropdown-item" href="#card-farmacia">Farmácia</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="position-relative" id="busca-wrapper">
+                        <form class="d-flex" id="form-busca" autocomplete="off" role="search">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input class="form-control" type="search" id="input-busca"
+                                    placeholder="Buscar produto, categoria, quantidade..." aria-label="Buscar">
+                            </div>
+                        </form>
+                        <ul class="list-group" id="busca-resultados"></ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <div class="container" id="main-content">
+            <div class="row row-cols-1 row-cols-lg-3 g-4">
+                <div class="col d-flex flex-column gap-4" id="secao-armario">
+                    <h4 class="secao-titulo"><i class="bi bi-archive"></i> Armários</h4>
+
+                    <div class="card h-100 shadow-sm" id="card-armario-superior">
+                        <div class="card-body d-flex flex-column" id="armario-superior-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="armario-superior">Armário Superior</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Temperos e itens do dia a dia</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="armario-superior-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto"
+                                data-categoria="armario-superior">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+
+                    <div class="card h-100 shadow-sm" id="card-armario-inferior">
+                        <div class="card-body d-flex flex-column" id="armario-inferior-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="armario-inferior">Armário Inferior</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Grãos, Massas, Oléos, Farinhas...</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="armario-inferior-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto"
+                                data-categoria="armario-inferior">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+
+                    <div class="card h-100 shadow-sm" id="card-armario-gatas">
+                        <div class="card-body d-flex flex-column" id="armario-gatas-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="armario-gatas">Armário das Gatas</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Ração, churu, areia...</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="armario-gatas-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto"
+                                data-categoria="armario-gatas">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col d-flex flex-column gap-4" id="secao-geladeira">
+                    <h4 class="secao-titulo"><i class="bi bi-snow2"></i> Geladeira &amp; Freezer</h4>
+
+                    <div class="card h-100 shadow-sm" id="card-congelador">
+                        <div class="card-body d-flex flex-column" id="congelador-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="congelador">Congelador</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Carnes, aves, molhos</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="congelador-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto"
+                                data-categoria="congelador">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+
+                    <div class="card h-100 shadow-sm" id="card-geladeira">
+                        <div class="card-body d-flex flex-column" id="geladeira-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="geladeira">Geladeira</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Folhas, laticínios, vegetais</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="geladeira-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto" data-categoria="geladeira">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+
+                    <div class="card h-100 shadow-sm" id="card-fruteira">
+                        <div class="card-body d-flex flex-column" id="fruteira-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="fruteira">Fruteira</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Banana, Cebola, Tomate...</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="fruteira-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto" data-categoria="fruteira">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col d-flex flex-column gap-4" id="secao-dispensa">
+                    <h4 class="secao-titulo"><i class="bi bi-droplet"></i> Dispensa &amp; Casa de Banho</h4>
+
+                    <div class="card h-100 shadow-sm" id="card-dispensa">
+                        <div class="card-body d-flex flex-column" id="dispensa-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="dispensa">Dispensa</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Materiais de limpeza</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="dispensa-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto" data-categoria="dispensa">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+
+                    <div class="card h-100 shadow-sm" id="card-banheiro">
+                        <div class="card-body d-flex flex-column" id="banheiro-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="banheiro">Banheiro</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Sabonete liquido, shampoo, fio dental...</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="banheiro-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto" data-categoria="banheiro">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+
+                    <div class="card h-100 shadow-sm" id="card-farmacia">
+                        <div class="card-body d-flex flex-column" id="farmacia-container">
+                            <h5 class="card-title titulo-categoria" data-bs-toggle="modal"
+                                data-bs-target="#ver-categoria" data-categoria="farmacia">Farmácia</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Remédios, protetor solar, comsméticos...</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-3" id="farmacia-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm mt-auto align-self-start"
+                                data-bs-toggle="modal" data-bs-target="#cadastrar-produto" data-categoria="farmacia">
+                                <i class="bi bi-plus-lg"></i> Cadastrar Itens</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container text-center my-5">
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                data-bs-target="#excluir-produto">
+                <i class="bi bi-trash3"></i> Excluir Item</button>
+        </div>
+
+    </main>
+
+    <div class="modal" tabindex="-1" id="cadastrar-produto" role="dialog" aria-hidden="true"
+        aria-labelledby="cadastrar-produto-label">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cadastrar-produto-label">Cadastrar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form" id="form-cadastro-produto">
+
+                        <div class="mb-3">
+                            <label for="select-categoria" class="form-label">Categoria</label>
+                            <select class="form-select" id="select-categoria" aria-label="Default select example"
+                                aria-placeholder="selecione..." required>
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="armario-superior">Armário Superior</option>
+                                <option value="armario-inferior">Armário Inferior</option>
+                                <option value="armario-gatas">Armário das Gatas</option>
+                                <option value="congelador">Congelador</option>
+                                <option value="geladeira">Geladeira</option>
+                                <option value="fruteira">Fruteira</option>
+                                <option value="dispensa">Dispensa</option>
+                                <option value="banheiro">Banheiro</option>
+                                <option value="farmacia">Farmácia</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nome-produto" class="form-label">Nome do produto</label>
+                            <input type="text" class="form-control" id="nome-produto" placeholder="produto..." required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="qtd-produto" class="form-label">Quantidade</label>
+                            <input type="number" class="form-control" id="qtd-produto" placeholder="1..." step=0.1
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="unidade-produto" class="form-label">Unidade</label>
+                            <select class="form-select" id="select-unidade" aria-label="Default select example"
+                                aria-placeholder="selecione..." required>
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="kg">Kilo Gramas</option>
+                                <option value="g">Gramas</option>
+                                <option value="L">Litros</option>
+                                <option value="pacote">Pacote</option>
+                                <option value="un">Unidade</option>
+                                <option value="pc">Peça</option>
+
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btn-salvar-produto">
+                        <i class="bi bi-check-lg"></i> Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="excluir-produto" role="dialog" aria-hidden="true"
+        aria-labelledby="excluir-produto-label">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="excluir-produto-label">Excluir Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="select-produto-excluir" class="form-label">Selecione o produto</label>
+                        <select class="form-select" id="select-produto-excluir" required>
+                            <option value="" selected disabled>Selecione</option>
+                        </select>
+                    </div>
+                    <p class="text-danger">Esta ação remove o produto permanentemente do banco de dados.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="ver-categoria" role="dialog" aria-hidden="true"
+        aria-labelledby="ver-categoria-label">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title" id="ver-categoria-label">Categoria</h5>
+                        <p class="mb-0 text-muted small" id="ver-categoria-descricao"></p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table align-middle" id="ver-categoria-table">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <p class="text-muted text-center mb-0 d-none" id="ver-categoria-vazio">Nenhum item cadastrado
+                        nesta categoria ainda.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="btn-adicionar-da-categoria">
+                        <i class="bi bi-plus-lg"></i> Adicionar Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./app.js"></script>
+
+</body>
+
+</html>
